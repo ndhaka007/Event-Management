@@ -8,12 +8,10 @@ route::post('/register',function (Request $request){});<br />
 |User api
 |-------------------------------------
 |Here are api used by user
-|
 |for invitation:
 |   0 = invited and pending
 |   1 = accepted
 |   2 = rejected
-|
 */
 
 //show profile user/admin<br />
