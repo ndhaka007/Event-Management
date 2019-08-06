@@ -1,6 +1,6 @@
 # Event-Management
 
-//to register user
+//to register user <br />
 route::post('/register',function (Request $request){});
 
 /*
