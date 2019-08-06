@@ -1,7 +1,7 @@
 # Event-Management
 
 //to register user <br />
-route::post('/register',function (Request $request){});
+route::post('/register',function (Request $request){});<br />
 
 /*
 |-------------------------------------
@@ -16,26 +16,26 @@ route::post('/register',function (Request $request){});
 |
 */
 
-//show profile user/admin
-Route::get('/profile','eventCrud@profile');
+//show profile user/admin<br />
+Route::get('/profile','eventCrud@profile');<br />
 
-//show created event for user/admin
-Route::get('/event','eventCrud@eventShow');
+//show created event for user/admin<br />
+Route::get('/event','eventCrud@eventShow');<br />
 
-//show invited events
-Route::get('/events','eventCrud@showInvitation');
+//show invited events<br />
+Route::get('/events','eventCrud@showInvitation');<br />
 
-//store event
-Route::post('/event','eventCrud@store');
+//store event<br />
+Route::post('/event','eventCrud@store');<br />
 
-//send invitation
-Route::post('/invite','eventCrud@invite');
+//send invitation<br />
+Route::post('/invite','eventCrud@invite');<br />
 
-//reply to invitations
-Route::patch('/invite','eventCrud@replyInvitation');
+//reply to invitations<br />
+Route::patch('/invite','eventCrud@replyInvitation');<br />
 
-//delete event
-Route::delete('/event','eventCrud@delete');
+//delete event<br />
+Route::delete('/event','eventCrud@delete');<br />
 
 /*
 |-------------------------------------
@@ -44,9 +44,9 @@ Route::delete('/event','eventCrud@delete');
 |Here are api used by admin
 */
 
-//show all user
-Route::get('/user','admin@showUser');
-//reply to invitations
-Route::patch('/adminInvite','admin@replyInvitation');
-//delete user
-Route::delete('/user','admin@delete');
+//show all user<br />
+Route::get('/user','admin@showUser');<br />
+//reply to invitations<br />
+Route::patch('/adminInvite','admin@replyInvitation');<br />
+//delete user<br />
+Route::delete('/user','admin@delete');<br />
