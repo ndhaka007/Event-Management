@@ -1,8 +1,7 @@
 @component('mail::message')
 # Introduction
 
-The body of your message.
-
+{{$ev}}
 @component('mail::button', ['url' => ''])
 Button Text
 @endcomponent

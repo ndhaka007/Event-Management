@@ -87,7 +87,7 @@ class eventCrud extends Controller
         $status->status = 0; //invitation
         $status->save();
 
-        $this->mailto($email, $event);
+        $this->mailto($email, "Event Invite");
 
         return "Invitation sent";
     }
@@ -189,7 +189,7 @@ class eventCrud extends Controller
         foreach($user_id as $user){
 
             $us = user::where('user_id',$user->user_id)->get()[0];
-            $r="p";
+            $r="Event Cancelled";
             $this->mailto($us->email,$r);
         }
 

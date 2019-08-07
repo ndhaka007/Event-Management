@@ -72,10 +72,6 @@ Route::delete('/event','eventCrud@delete');
 
 
 
-//testing mail
-Route::get('/mail','eventCrud@update');
-
-
 /*
 |-------------------------------------
 |Admin api
