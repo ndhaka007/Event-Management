@@ -52,7 +52,7 @@ class eventCrud extends Controller
     {
         //
         $user = auth()->user();
-        if($user->role==1)
+        if($user->role)
         {
             $event = event::all();
         }
@@ -71,23 +71,10 @@ class eventCrud extends Controller
      */
     public function invite(Request $request)
     {
-        //
-        $email = request('email');
-        $event_id = request('event_id');
 
-        $event = event::where('event_id',$event_id)->first();
+        $event = event::where('event_id',$request['event_id'])->first();
         $this->authorize('delete', $event);
-
-        $user=user::select('user_id')->where('email',$email)->first();
-
-        $status = new status();
-
-        $status->user_id = $user->user_id;
-        $status->event_id = $event_id;
-        $status->status = 0; //invitation
-        $status->save();
-
-        $this->mailto($email, "Event Invite");
+        status::sendInvite($request);
 
         return "Invitation sent";
     }
@@ -99,28 +86,9 @@ class eventCrud extends Controller
      */
     public function store(Request $request)
     {
-        //to validate event data
-        $validatedData = $request->validate([
-            'event_name' => 'required',
-            'place' => 'required',
-            'description' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
-        ]);
-
-    $event = new event();
-
-    $user = auth()->user();
-    $event->user_id = $user->user_id;
-    $event->event_name= request('event_name');
-    $event->place = request('place');
-    $event->description = request('description');
-    $event->start = request('start_time');
-    $event->end = request('end_time');
-
-    $event->save();
-    return "Event saved";
-
+        $user = auth()->user();
+        event::storeEvent($request,$user->user_id);
+        return "Event saved";
     }
 
     /**
@@ -149,16 +117,8 @@ class eventCrud extends Controller
      */
     public function replyInvitation(Request $request)
     {
-        //
         $user = auth()->user();
-
-        $event_id = request('event_id');
-        $status = request('status');
-
-        status::where('user_id',$user->user_id)->where('event_id',$event_id)->update(['status'=>$status]);
-        if($status==1)return "Accepted";
-        else return "rejected";
-
+        return status::replyInvite($request,$user->user_id);
     }
 
     /**
@@ -181,11 +141,10 @@ class eventCrud extends Controller
     public function delete(Request $request)
     {
         //
-        $id = request('id');
-        $event = event::where('event_id',$id)->first();
+        $event = event::where('event_id',$request['id'])->first();
         $this->authorize('delete', $event);
 
-        $user_id = status::where('event_id',$id)->get();
+        $user_id = status::where('event_id',$request['id'])->get();
         foreach($user_id as $user){
 
             $us = user::where('user_id',$user->user_id)->get()[0];

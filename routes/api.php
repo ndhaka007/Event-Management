@@ -19,21 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //to register user
 route::post('/register',function (Request $request){
-
-    // to validate user data
-    $validatedData = $request->validate([
-        'username' => 'required',
-        'password' => 'required|min:8',
-        'email' => 'required|email',
-    ]);
-
-    // to create user
-    $user = new user();
-    $user->user_name = request('username');
-    $user->password	= bcrypt(request('password'));
-    $user->email = request('email');
-    $user->role = 0;
-    $user->save();
+    user::register($request);
     return "User created";
 });
 /*
